@@ -1,8 +1,8 @@
 {% set xorg_name = "xorg-cf-files" %}
 {% set xorg_category = "util" %}
 {% set name = "xorg-cf-files" %}
-{% set version = "1.0.7" %}
-{% set sha256 = "74a771d5bb2189020399998dfa2329c3e038aa2e14dd3d4056144ed9a5976308" %}
+{% set version = "1.0.8" %}
+{% set sha256 = "7408955defcfab0f44d1bedd4ec0c20db61914917ad17bfc1f1c9bf56acc17b9" %}
 {% set am_version = "1.15" %} # keep synchronized with build.sh
 
 package:
@@ -10,14 +10,13 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ xorg_name }}-{{ version }}.tar.bz2
-  url: https://www.x.org/releases/individual/{{ xorg_category }}/{{ xorg_name }}-{{ version }}.tar.bz2
+  url: https://www.x.org/releases/individual/{{ xorg_category }}/{{ xorg_name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
   patches:
     - no-lib64.patch
 
 build:
-  number: 1
+  number: 0
   detect_binary_files_with_prefix: true
 
 requirements:
