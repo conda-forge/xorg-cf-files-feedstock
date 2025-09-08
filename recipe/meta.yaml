@@ -1,8 +1,8 @@
 {% set xorg_name = "xorg-cf-files" %}
 {% set xorg_category = "util" %}
 {% set name = "xorg-cf-files" %}
-{% set version = "1.0.8" %}
-{% set sha256 = "7408955defcfab0f44d1bedd4ec0c20db61914917ad17bfc1f1c9bf56acc17b9" %}
+{% set version = "1.0.9" %}
+{% set sha256 = "07716eb1fe1fd1f8a1d6588457db0101cae70cb896d49dc65978c97b148ce976" %}
 {% set am_version = "1.16" %} # keep synchronized with build.sh
 
 package:
