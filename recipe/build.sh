@@ -19,31 +19,10 @@ else
     uprefix="$PREFIX"
 fi
 
-# On Windows we need to regenerate the configure scripts.
-if [ -n "$CYGWIN_PREFIX" ] ; then
-    am_version=1.16 # keep sync'ed with meta.yaml
-    export ACLOCAL=aclocal-$am_version
-    export AUTOMAKE=automake-$am_version
-    autoreconf_args=(
-        --force
-        --install
-        -I "$mprefix/share/aclocal"
-        -I "$BUILD_PREFIX_M/Library/usr/share/aclocal"
-    )
-    autoreconf "${autoreconf_args[@]}"
-fi
-
-export PKG_CONFIG_LIBDIR=$uprefix/lib/pkgconfig:$uprefix/share/pkgconfig
-configure_args=(
-    --prefix=$mprefix
-    --disable-dependency-tracking
-    --disable-selective-werror
-    --disable-silent-rules
-)
-
-./configure "${configure_args[@]}"
-make -j$CPU_COUNT
-make install
-make check
+mkdir builddir
+meson setup builddir ${MESON_ARGS} --prefix="$PREFIX" --backend=ninja \
+  || { cat builddir/meson-logs/meson-log.txt ; false ; }
+ninja -C builddir -j${CPU_COUNT} -v
+ninja -C builddir install || { cat builddir/meson-logs/meson-log.txt ; false ; }
 
 rm -rf $uprefix/share/man $uprefix/share/doc/xorg-cf-files
